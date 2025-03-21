@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Calculator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      .calculator {
+        width: 400px;
+        height: 500px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        font-size: 30px;
+        text-align: right;
+        border-radius: 10px;
+        border: 2px solid #cfcfcf;
+      }
+      button {
+        width: 23%;
+        padding: 10px;
+        margin: 1%;
+        font-size: 18px;
+        cursor: pointer;
+      }
+      button.toan_tu {
+        background-color: #f0ad4e;
+        color: white;
+      }
+      button.equals {
+        background-color: #5cb85c;
+        color: white;
+        width: 48%;
+      }
+      button.clear {
+        background-color: #d9534f;
+        color: white;
+        width: 48%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <input type="text" id="man_hinh" disabled />
+      <br />
+      <button onclick="toan_hang('7')">7</button>
+      <button onclick="toan_hang('8')">8</button>
+      <button onclick="toan_hang('9')">9</button>
+      <button class="toan_tu" onclick="toan_tu('/')">/</button>
+      <br />
+      <button onclick="toan_hang('4')">4</button>
+      <button onclick="toan_hang('5')">5</button>
+      <button onclick="toan_hang('6')">6</button>
+      <button class="toan_tu" onclick="toan_tu('*')">*</button>
+      <br />
+      <button onclick="toan_hang('1')">1</button>
+      <button onclick="toan_hang('2')">2</button>
+      <button onclick="toan_hang('3')">3</button>
+      <button class="toan_tu" onclick="toan_tu('-')">-</button>
+      <br />
+      <button onclick="toan_hang('0')">0</button>
+      <button onclick="toan_hang('.')">.</button>
+      <button class="toan_tu" onclick="toan_tu('%')">%</button>
+      <button class="toan_tu" onclick="toan_tu('+')">+</button>
+      <br />
+      <button class="clear" onclick="lam_lai()">C</button>
+      <button class="equals" onclick="thuc_hien()">=</button>
+    </div>
+
+    <script>
+      var a = null,
+        b = null,
+        o = null;
+
+      function lam_lai() {
+        document.getElementById("man_hinh").value = "";
+        a = null;
+        b = null;
+        o = null;
+      }
+
+      function toan_hang(x) {
+        if (o === null) {
+          a = a === null ? x : a + x;
+        } else {
+          b = b === null ? x : b + x;
+        }
+        document.getElementById("man_hinh").value += x;
+      }
+
+      function toan_tu(x) {
+        if (a !== null && o === null) {
+          o = x;
+          document.getElementById("man_hinh").value += " " + x + " ";
+        }
+      }
+ 
+      function thuc_hien() {
+        if (a === null || b === null || o === null) {
+          alert("Vui lòng nhập đầy đủ toán hạng và toán tử");
+          return;
+        }
+
+        var numA = parseFloat(a);
+        var numB = parseFloat(b);
+        var kq = 0;
+
+        switch (o) {
+          case "+":
+            kq = numA + numB;
+            break;
+          case "-":
+            kq = numA - numB;
+            break;
+          case "*":
+            kq = numA * numB;
+            break;
+          case "/":
+            if (numB === 0) {
+              alert("Không thể chia cho 0!");
+              return;
+            }
+            kq = numA / numB;
+            break;
+          case "%":
+            kq = numA % numB;
+            break;
+          default:
+            alert(o + " không phải là toán tử hợp lệ");
+            return;
+        }
+
+        document.getElementById("man_hinh").value = kq;
+        a = kq.toString();
+        b = null;
+        o = null;
+      }
+    </script>
+  </body>
+</html>

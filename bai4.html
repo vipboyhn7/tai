@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kéo Búa Bao</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      .choices input {
+        width: 100px;
+        cursor: pointer;
+        margin: 10px;
+        font-size: 30px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: antiquewhite;
+        font-weight: bolder;
+      }
+      .result {
+        margin-top: 20px;
+        font-size: 30px;
+        font-weight: bold;
+        border: 1px solid #ccc;
+        width: 300px;
+        margin: 30px auto;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Game Kéo Búa Bao</h1>
+    <div class="choices">
+      <input type="button" onclick="playGame('Kéo')" value="Kéo" />
+      <input type="button" onclick="playGame('Búa')" value="Búa" />
+      <input type="button" onclick="playGame('Bao')" value="Bao" />
+    </div>
+    <div class="result" id="result"></div>
+
+    <script>
+      function playGame(playerChoice) {
+        const choices = ["Kéo", "Búa", "Bao"];
+        const computerChoice =
+          choices[Math.floor(Math.random() * choices.length)];
+        let result = "";
+
+        if (playerChoice === computerChoice) {
+          result = "Hòa!";
+        } else if (
+          (playerChoice === "Kéo" && computerChoice === "Bao") ||
+          (playerChoice === "Búa" && computerChoice === "Kéo") ||
+          (playerChoice === "Bao" && computerChoice === "Búa")
+        ) {
+          result = "Bạn thắng!";
+        } else {
+          result = "Bạn thua!";
+        }
+
+        document.getElementById("result").innerHTML = `
+            Bạn chọn: ${playerChoice} <br>
+            Máy chọn: ${computerChoice} <br>
+            Kết quả: ${result}
+         `;
+      }
+    </script>
+  </body>
+</html>
